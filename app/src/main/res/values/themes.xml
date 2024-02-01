@@ -1,9 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.SearchImagesTest" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.SearchImagesTest" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="toolbarStyle">@style/Theme.My.Toolbar</item>
     </style>
 
     <style name="Theme.SearchImagesTest" parent="Base.Theme.SearchImagesTest" />
+
+    <style name="Theme.My.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/indigo_300</item>
+    </style>
 </resources>

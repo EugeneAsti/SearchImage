@@ -18,7 +18,7 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "MAIN_URL", "\"https://serpapi.com\"")
-
+        buildConfigField("String", "API_KEY", "\"8616d74136af53081fc604726b61e1f804c6de84444b57e1948e47e3ac537898\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -62,6 +62,8 @@ dependencies {
 //    implementation("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
     ksp ("androidx.room:room-compiler:2.6.1")
 
+//    implementation ("androidx.paging:paging-runtime:3.2.1")
+    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
     // - - ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")

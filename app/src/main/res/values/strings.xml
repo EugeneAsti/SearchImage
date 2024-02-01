@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">SearchImagesTest</string>
+    <string name="found_item_text">found item</string>
+    <string name="start_search_here">Start search here</string>
+    <string name="filter_by_type">Filter by type</string>
+    <string name="images">images</string>
+    <string name="video">video</string>
+    <string name="filter_by_size">Filter by size</string>
+    <string name="any_size">Any size</string>
+    <string name="large">Large</string>
+    <string name="medium">Medium</string>
+    <string name="small">Small</string>
+    <string name="icon">Icon</string>
+    <string name="filter_by_country">Filter by country</string>
+    <string name="any_country">Any country</string>
+    <string name="australia">Australia</string>
+    <string name="great_britain">Great Britain</string>
+    <string name="russia">Russia</string>
+    <string name="spain">Spain</string>
+    <string name="filter_by_language">Filter by language</string>
+    <string name="any">Any</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="spanish">Español</string>
+    <string name="german">german</string>
+    <string name="germany">Germany</string>
+    <string name="share_button">share</string>
 </resources>
