@@ -1,5 +1,8 @@
 package ru.aeyu.searchimagestest.domain.models
 
+import android.os.Parcel
+import android.os.Parcelable
+
 data class ImageItemDomain(
     val position: Int,
     val thumbnail: String,
@@ -14,4 +17,52 @@ data class ImageItemDomain(
     val originalWidth: Int,
     val originalHeight: Int,
     val isProduct: Boolean,
-)
+): Parcelable{
+    constructor(parcel: Parcel) : this(
+        position = parcel.readInt(),
+        thumbnail = parcel.readString() ?: "",
+        relatedContentId = parcel.readString() ?: "",
+        serpapiRelatedContentLink = parcel.readString() ?: "",
+        source = parcel.readString() ?: "",
+        sourceLogo = parcel.readString() ?: "",
+        title = parcel.readString() ?: "",
+        link = parcel.readString() ?: "",
+        tag = parcel.readString() ?: "",
+        original = parcel.readString() ?: "",
+        originalWidth = parcel.readInt(),
+        originalHeight = parcel.readInt(),
+        isProduct = parcel.readByte() != 0.toByte()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(position)
+        parcel.writeString(thumbnail)
+        parcel.writeString(relatedContentId)
+        parcel.writeString(serpapiRelatedContentLink)
+        parcel.writeString(source)
+        parcel.writeString(sourceLogo)
+        parcel.writeString(title)
+        parcel.writeString(link)
+        parcel.writeString(tag)
+        parcel.writeString(original)
+        parcel.writeInt(originalWidth)
+        parcel.writeInt(originalHeight)
+        parcel.writeByte(if (isProduct) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<ImageItemDomain> {
+        override fun createFromParcel(parcel: Parcel): ImageItemDomain {
+            return ImageItemDomain(parcel)
+        }
+
+        override fun newArray(size: Int): Array<ImageItemDomain?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}

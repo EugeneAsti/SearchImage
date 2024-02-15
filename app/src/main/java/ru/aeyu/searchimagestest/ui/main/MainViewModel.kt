@@ -12,6 +12,7 @@ import ru.aeyu.searchimagestest.domain.enums.ContentTypes
 import ru.aeyu.searchimagestest.domain.enums.Countries
 import ru.aeyu.searchimagestest.domain.enums.Languages
 import ru.aeyu.searchimagestest.domain.enums.MenuContentSizes
+import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
 import ru.aeyu.searchimagestest.domain.models.SearchFilter
 import ru.aeyu.searchimagestest.domain.models.SearchQuery
 import ru.aeyu.searchimagestest.domain.models.defaultSearchFilter
@@ -35,17 +36,21 @@ class MainViewModel @Inject constructor(
         throwable.printStackTrace()
     }
 
-    suspend fun onNewSearchQuery(query: String?) {
-        searchJob?.cancelAndJoin()
-        if (query.isNullOrEmpty())
-            fragmentState.emit(
-                currentState.copy(
-                    isLoading = false,
-                    isVisibleMessageText = true,
-                    textMessage = "Вы ничего не указали в строке поиска. :)"
+    fun onNewSearchQuery(query: String?) {
+        viewModelScope.launch {
+            searchJob?.cancelAndJoin()
+        }
+        if (query.isNullOrEmpty()) {
+            viewModelScope.launch {
+                fragmentState.emit(
+                    currentState.copy(
+                        isLoading = false,
+                        isVisibleMessageText = true,
+                        textMessage = "Вы ничего не указали в строке поиска. :)"
+                    )
                 )
-            )
-        else
+            }
+        } else
             onSearchImages(query)
     }
 
@@ -130,5 +135,12 @@ class MainViewModel @Inject constructor(
             searchJob?.cancelAndJoin()
         }
         super.onCleared()
+    }
+
+    fun onItemClicked(imagesArray: List<ImageItemDomain>, imageItem: ImageItemDomain) {
+        viewModelScope.launch {
+            val images: List<String> = imagesArray.map { it.original }
+            fragmentEffects.send(MainEffect.OnImageClicked(images, imageItem))
+        }
     }
 }

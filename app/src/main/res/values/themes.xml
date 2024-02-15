@@ -12,4 +12,6 @@
     <style name="Theme.My.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:background">@color/indigo_300</item>
     </style>
+
+    <style name="ThemeOverlay.SearchImagesTest.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>

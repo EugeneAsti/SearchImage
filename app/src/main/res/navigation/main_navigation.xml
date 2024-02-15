@@ -7,19 +7,18 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="ru.aeyu.searchimagestest.ui.main.MainFragment"
-        android:label="MainFragment"
+        android:label="Searcher"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/imagesCarouselFragmentAction"
             app:destination="@id/imagesCarouselFragment"
-            app:popUpToInclusive="false"
             />
     </fragment>
     <fragment
         android:id="@+id/imagesCarouselFragment"
         android:name="ru.aeyu.searchimagestest.ui.images_carousel.ImagesCarouselFragment"
-        android:label="ImagesCarouselFragment"
-        tools:layout="@layout/fragment_images_carousel">
+        android:label="View Images"
+        tools:layout="@layout/fragment_images_carousel"        >
         <argument
             android:name="currentImage"
             app:argType="string"

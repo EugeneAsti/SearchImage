@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -19,9 +16,9 @@ import kotlin.math.abs
 
 class ImagesCarouselFragment :
     BaseFragment<CarouselState, CarouselEffects, FragmentImagesCarouselBinding, CarouselViewModel>() {
-    override val viewModel: CarouselViewModel by activityViewModels()
+    override val viewModel: CarouselViewModel by viewModels()
 
-    private lateinit var viewPager2: ViewPager2
+    private lateinit var imagesPager: ViewPager2
     private lateinit var carouselAdapter: CarouselAdapter
     private val extArgs: ImagesCarouselFragmentArgs by navArgs()
 
@@ -36,31 +33,29 @@ class ImagesCarouselFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (!findNavController().popBackStack()) {
-                requireActivity().finish()
-            }
-        }
+        viewModel.onFragmentCreated(extArgs.imagesUrls, extArgs.currentImage)
     }
 
-    private fun init(){
-        viewPager2 = binding.pagerImages
-        viewModel.generateImagesList(extArgs.imagesUrls)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.saveCurrentPosition(imagesPager.currentItem)
+    }
+
+    private fun init() {
+        imagesPager = binding.pagerImages
+
         carouselAdapter = CarouselAdapter(carouselAdapterLimitReached)
 
-        viewPager2.adapter = carouselAdapter
-        viewPager2.offscreenPageLimit = 3
-        viewPager2.clipToPadding = false
-        viewPager2.clipChildren = false
-        viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        imagesPager.adapter = carouselAdapter
+        imagesPager.offscreenPageLimit = 3
+
         val transformer = CompositePageTransformer()
         transformer.addTransformer(MarginPageTransformer(40))
         transformer.addTransformer { page, position ->
             val r = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.14f
         }
-        viewPager2.setPageTransformer(transformer)
+        imagesPager.setPageTransformer(transformer)
     }
 
     private val carouselAdapterLimitReached: () -> Unit = {
@@ -73,7 +68,10 @@ class ImagesCarouselFragment :
             binding.tvSomeInformationText.text = state.messageText
         } else
             binding.tvSomeInformationText.isVisible = false
+
         carouselAdapter.differ.submitList(state.imagesList)
+        if (state.currentImagePos >= 0)
+            imagesPager.setCurrentItem(state.currentImagePos, false)
     }
 
     override fun handleEffects(effect: CarouselEffects) {

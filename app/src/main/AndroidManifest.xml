@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_major_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SearchImagesTest"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".ui.MainActivity"
