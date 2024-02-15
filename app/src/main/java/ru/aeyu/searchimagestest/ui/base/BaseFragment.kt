@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
@@ -17,8 +16,10 @@ import kotlinx.coroutines.launch
 import ru.aeyu.searchimagestest.BuildConfig
 
 abstract class BaseFragment<
+        FragmentState: FragmentListenableState,
+        FragmentEffect: FragmentListenableEffects,
         BindingClass : ViewBinding,
-        MyViewModel: ViewModel> : Fragment() {
+        MyViewModel: BaseViewModel<FragmentState, FragmentEffect>> : Fragment() {
 
     protected abstract val viewModel: MyViewModel
     private var _binding: BindingClass? = null
@@ -37,6 +38,7 @@ abstract class BaseFragment<
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        collectState()
         collectEffects()
     }
 
@@ -64,23 +66,39 @@ abstract class BaseFragment<
 
     private fun collectEffects(){
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.uiActions.collect{action ->
-//                    when(action){
-//                        is UiActions.OnError -> showDialog(action.message)
-//                        is UiActions.OnInformation -> showSnackBar(action.message)
-//                        is UiActions.OnLoading -> showProgressIndicator(action.isLoading)
-//                    }
-//                }
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.fragmentEffectsListener.collect{
+                    handleEffects(it)
+                }
             }
         }
     }
 
-    abstract fun showProgressIndicator(isLoading: Boolean)
+    private fun collectState(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.fragmentStateListener.collect{
+                    handleState(it)
+                }
+            }
+        }
+    }
+
+    protected abstract fun handleEffects(effect: FragmentEffect)
+    protected abstract fun handleState(state: FragmentState)
 
     protected fun printLog(text: String){
         if(BuildConfig.DEBUG){
             Log.i("!!!###!!!", "[${this.javaClass.simpleName}] $text")
         }
+    }
+
+    protected fun showErrorAlertDialog(errMessage: String){
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Ошибка")
+            setMessage(errMessage)
+            setCancelable(false)
+            setNegativeButton("Понятно", null)
+        }.show()
     }
 }

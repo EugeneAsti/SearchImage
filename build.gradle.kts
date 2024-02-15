@@ -3,7 +3,7 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.9.0")
 //        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
-//        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
     }
 }
 plugins {

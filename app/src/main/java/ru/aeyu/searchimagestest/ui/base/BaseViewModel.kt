@@ -12,12 +12,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import ru.aeyu.searchimagestest.BuildConfig
 
-abstract class BaseViewModel<UiState: FragmentListenableState, UiEffects: FragmentListenableEffects> : ViewModel() {
+abstract class BaseViewModel<UiState: FragmentListenableState, UiEffects: FragmentListenableEffects>(initialState: UiState) : ViewModel() {
 
     protected abstract val classTag: String
-    protected val fragmentState: MutableStateFlow<UiState> by lazy {
-        MutableStateFlow(initialState)
-    }
+//    protected abstract val
+
+    protected val fragmentState: MutableStateFlow<UiState> =  MutableStateFlow(initialState)
+
     val fragmentStateListener: StateFlow<UiState> = fragmentState.asStateFlow()
 
     private val coroutineExceptionHandler =
@@ -30,16 +31,14 @@ abstract class BaseViewModel<UiState: FragmentListenableState, UiEffects: Fragme
 
     protected val fragmentEffects: Channel<UiEffects> = Channel()
 
-    val fragmentListenableEffects: Flow<UiEffects> = fragmentEffects.receiveAsFlow()
+    val fragmentEffectsListener: Flow<UiEffects> = fragmentEffects.receiveAsFlow()
 
     protected abstract fun processCoroutineErrors(throwable: Throwable)
 
-    protected abstract val initialState: UiState
     protected val currentState: UiState get() = fragmentState.asStateFlow().value
-    abstract fun onFragmentStarted()
 
     protected fun printLog(message: String) {
         if (BuildConfig.DEBUG)
-            Log.i("!!!###!!!", "[$classTag] message")
+            Log.i("!!!###!!!", "[$classTag] $message")
     }
 }

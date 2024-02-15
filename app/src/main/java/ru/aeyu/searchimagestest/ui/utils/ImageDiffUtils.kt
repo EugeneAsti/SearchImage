@@ -1,19 +1,19 @@
 package ru.aeyu.searchimagestest.ui.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.aeyu.searchimagestest.data.remote.model.ImageItem
+import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
 
-class ImageDiffUtils : DiffUtil.ItemCallback<ImageItem>() {
+class ImageDiffUtils : DiffUtil.ItemCallback<ImageItemDomain>() {
     override fun areItemsTheSame(
-        oldItem: ImageItem,
-        newItem: ImageItem
+        oldItem: ImageItemDomain,
+        newItem: ImageItemDomain
     ): Boolean {
         return oldItem.original == newItem.original
     }
 
     override fun areContentsTheSame(
-        oldItem: ImageItem,
-        newItem: ImageItem
+        oldItem: ImageItemDomain,
+        newItem: ImageItemDomain
     ): Boolean {
         return oldItem.original == newItem.original
     }

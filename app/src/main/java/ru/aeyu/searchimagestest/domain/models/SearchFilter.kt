@@ -9,7 +9,7 @@ data class SearchFilter(
     val contentType: ContentTypes,
     val country: Countries,
     val contentSize: ContentSizes,
-    val languages: Languages
+    val language: Languages
 )
 
 fun defaultSearchFilter(): SearchFilter{
@@ -17,6 +17,6 @@ fun defaultSearchFilter(): SearchFilter{
         contentType = ContentTypes.IMAGES,
         country = Countries.ANY,
         contentSize = ContentSizes.IMAGE_ANY,
-        languages = Languages.ANY
+        language = Languages.ANY
     )
 }

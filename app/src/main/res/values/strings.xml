@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SearchImagesTest</string>
+    <string name="app_name">Searcher</string>
     <string name="found_item_text">found item</string>
     <string name="start_search_here">Start search here</string>
     <string name="filter_by_type">Filter by type</string>
