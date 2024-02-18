@@ -24,5 +24,6 @@
     <string name="spanish">Español</string>
     <string name="german">german</string>
     <string name="germany">Germany</string>
-    <string name="share_button">share</string>
+    <string name="share_button">Share</string>
+    <string name="home_button">Visit home page</string>
 </resources>

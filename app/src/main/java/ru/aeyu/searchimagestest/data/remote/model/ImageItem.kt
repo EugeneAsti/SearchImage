@@ -13,15 +13,15 @@ data class ImageItem(
     val serpapiRelatedContentLink: String? = "",
     val source: String? = "",
     @SerialName("source_logo")
-    val sourceLogo: String? = "",
+    val sourceLogo: String? = "",//?
     val title: String? = "",
     val link: String? = "",
-    val tag: String? = "",
+    val tag: String? = "",//?
     val original: String? = "",
     @SerialName("original_width")
     val originalWidth: Int? = 0,
     @SerialName("original_height")
     val originalHeight: Int? = 0,
     @SerialName("is_product")
-    val isProduct: Boolean? = false,
+    val isProduct: Boolean? = false, //?
 )

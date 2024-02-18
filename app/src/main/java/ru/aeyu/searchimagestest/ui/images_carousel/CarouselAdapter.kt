@@ -6,25 +6,26 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.aeyu.searchimagestest.databinding.ImagesCarouselItemBinding
+import ru.aeyu.searchimagestest.domain.models.ContentItemDomain
 import ru.aeyu.searchimagestest.ui.utils.getImageFromRemote
 
 class CarouselAdapter(
     private val onLimitPageReached: () -> Unit
 ) : RecyclerView.Adapter<CarouselAdapter.ImageViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<String>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<ContentItemDomain>() {
         override fun areItemsTheSame(
-            oldItem: String,
-            newItem: String
+            oldItem: ContentItemDomain,
+            newItem: ContentItemDomain
         ): Boolean {
-            return oldItem == newItem
+            return oldItem.original == newItem.original
         }
 
         override fun areContentsTheSame(
-            oldItem: String,
-            newItem: String
+            oldItem: ContentItemDomain,
+            newItem: ContentItemDomain
         ): Boolean {
-            return oldItem == newItem
+            return oldItem.original == newItem.original
         }
     }
 
@@ -33,11 +34,11 @@ class CarouselAdapter(
     inner class ImageViewHolder(
         private val binding: ImagesCarouselItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String?) {
+        fun bind(item: ContentItemDomain?) {
             if (item == null) return
             binding.ivCurrentImage.getImageFromRemote(
                 context = binding.ivCurrentImage.context,
-                url = item,
+                url = item.original,
                 progressBarWidget = binding.progressImageViewLoading
             )
         }

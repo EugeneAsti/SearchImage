@@ -20,7 +20,7 @@ import ru.aeyu.searchimagestest.domain.enums.Countries
 import ru.aeyu.searchimagestest.domain.enums.Languages
 import ru.aeyu.searchimagestest.domain.enums.MenuContentSizes
 import ru.aeyu.searchimagestest.ui.main.MainViewModel
-import ru.aeyu.searchimagestest.ui.utils.MainMenuProvider
+import ru.aeyu.searchimagestest.ui.main.MainMenuProvider
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.mainFragment -> menuHost.addMenuProvider(myMenuProvider, this)
                 else -> menuHost.removeMenuProvider(myMenuProvider)
             }
+            invalidateOptionsMenu()
         }
     }
 

@@ -12,7 +12,7 @@ import ru.aeyu.searchimagestest.domain.enums.ContentTypes
 import ru.aeyu.searchimagestest.domain.enums.Countries
 import ru.aeyu.searchimagestest.domain.enums.Languages
 import ru.aeyu.searchimagestest.domain.enums.MenuContentSizes
-import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
+import ru.aeyu.searchimagestest.domain.models.ContentItemDomain
 import ru.aeyu.searchimagestest.domain.models.SearchFilter
 import ru.aeyu.searchimagestest.domain.models.SearchQuery
 import ru.aeyu.searchimagestest.domain.models.defaultSearchFilter
@@ -137,10 +137,11 @@ class MainViewModel @Inject constructor(
         super.onCleared()
     }
 
-    fun onItemClicked(imagesArray: List<ImageItemDomain>, imageItem: ImageItemDomain) {
+    fun onItemClicked(imagesList: List<ContentItemDomain>, imageItem: ContentItemDomain) {
         viewModelScope.launch {
-            val images: List<String> = imagesArray.map { it.original }
-            fragmentEffects.send(MainEffect.OnImageClicked(images, imageItem))
+            val arrList: ArrayList<ContentItemDomain> = java.util.ArrayList(imagesList)
+            val contentTypeCode = currentState.filters.contentType.code
+            fragmentEffects.send(MainEffect.OnImageClicked(arrList, imageItem, contentTypeCode))
         }
     }
 }

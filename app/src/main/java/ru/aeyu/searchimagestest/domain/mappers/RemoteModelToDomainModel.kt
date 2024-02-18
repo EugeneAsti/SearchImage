@@ -1,10 +1,10 @@
 package ru.aeyu.searchimagestest.domain.mappers
 
 import ru.aeyu.searchimagestest.data.remote.model.ImageItem
-import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
+import ru.aeyu.searchimagestest.domain.models.ContentItemDomain
 
-fun ImageItem.toDomainModel(): ImageItemDomain{
-    return ImageItemDomain(
+fun ImageItem.toDomainModel(): ContentItemDomain{
+    return ContentItemDomain(
         position = position,
         thumbnail = thumbnail ?: "",
         relatedContentId = relatedContentId ?: "",

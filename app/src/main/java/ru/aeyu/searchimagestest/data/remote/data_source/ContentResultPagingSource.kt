@@ -6,8 +6,8 @@ import ru.aeyu.searchimagestest.data.remote.model.ImageItem
 import ru.aeyu.searchimagestest.domain.enums.ContentSizes
 import ru.aeyu.searchimagestest.domain.models.SearchQuery
 
-class ImagesResultPagingSource(
-    private val imagesResultApi: ImagesResultApi,
+class ContentResultPagingSource(
+    private val contentResultApi: ContentResultApi,
     private val searchQuery: SearchQuery
 ) : PagingSource<Int, ImageItem>() {
     override fun getRefreshKey(state: PagingState<Int, ImageItem>): Int? {
@@ -29,7 +29,7 @@ class ImagesResultPagingSource(
                 else
                     searchQuery.searchFilter.contentSize.size
 
-            val imagesList = imagesResultApi.findImages(
+            val imagesList = contentResultApi.findImages(
                 searchText = searchQuery.searchText,
                 pageNumber = nextPageNumber,
                 language = searchQuery.searchFilter.language.code,

@@ -3,7 +3,7 @@ package ru.aeyu.searchimagestest.domain.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ImageItemDomain(
+data class ContentItemDomain(
     val position: Int,
     val thumbnail: String,
     val relatedContentId: String,
@@ -32,8 +32,8 @@ data class ImageItemDomain(
         originalWidth = parcel.readInt(),
         originalHeight = parcel.readInt(),
         isProduct = parcel.readByte() != 0.toByte()
-    ) {
-    }
+    )
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(position)
@@ -55,12 +55,12 @@ data class ImageItemDomain(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<ImageItemDomain> {
-        override fun createFromParcel(parcel: Parcel): ImageItemDomain {
-            return ImageItemDomain(parcel)
+    companion object CREATOR : Parcelable.Creator<ContentItemDomain> {
+        override fun createFromParcel(parcel: Parcel): ContentItemDomain {
+            return ContentItemDomain(parcel)
         }
 
-        override fun newArray(size: Int): Array<ImageItemDomain?> {
+        override fun newArray(size: Int): Array<ContentItemDomain?> {
             return arrayOfNulls(size)
         }
     }

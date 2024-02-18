@@ -3,15 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_gravity="bottom"
+        android:indeterminate="true"
+        app:hideAnimationBehavior="inward"
+        app:indicatorColor="@color/pink_700"
+        app:showAnimationBehavior="outward"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager_images"
         android:layout_width="match_parent"
         android:layout_height="420dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/progress_app_bar"/>
 
     <TextView
         android:id="@+id/tv_some_information_text"

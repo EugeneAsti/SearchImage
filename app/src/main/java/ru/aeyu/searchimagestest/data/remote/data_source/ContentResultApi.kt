@@ -9,7 +9,7 @@ import ru.aeyu.searchimagestest.domain.enums.Countries
 import ru.aeyu.searchimagestest.domain.enums.ContentSizes
 import ru.aeyu.searchimagestest.domain.enums.Languages
 
-interface ImagesResultApi {
+interface ContentResultApi {
         @GET("/search.json")
         fun findImages(
             @Query("q") searchText: String,

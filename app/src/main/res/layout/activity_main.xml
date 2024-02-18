@@ -10,22 +10,21 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBaseline_toTopOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 <!--        android:theme="@style/ThemeOverlay.SearchImagesTest.AppBarOverlay"-->
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
             android:layout_marginBottom="4dp"
+            android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_constraintBaseline_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBaseline_toTopOf="parent"/>
-
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -35,10 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:navGraph="@navigation/main_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

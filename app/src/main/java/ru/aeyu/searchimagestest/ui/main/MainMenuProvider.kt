@@ -1,4 +1,4 @@
-package ru.aeyu.searchimagestest.ui.utils
+package ru.aeyu.searchimagestest.ui.main
 
 import android.app.SearchManager
 import android.content.ComponentName

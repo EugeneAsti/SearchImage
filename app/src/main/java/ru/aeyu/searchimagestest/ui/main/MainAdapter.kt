@@ -7,14 +7,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.aeyu.searchimagestest.R
 import ru.aeyu.searchimagestest.databinding.FoundItemBinding
-import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
+import ru.aeyu.searchimagestest.domain.models.ContentItemDomain
 import ru.aeyu.searchimagestest.ui.utils.ImageDiffUtils
 import ru.aeyu.searchimagestest.ui.utils.getImageFromRemote
 
 class MainAdapter(
     diffUtils: ImageDiffUtils,
-    private val onItemClick: (clickedElement: ClickedElement, imageItem: ImageItemDomain) -> Unit
-) : PagingDataAdapter<ImageItemDomain, MainAdapter.MainAdapterViewHolder>(diffUtils) {
+    private val onItemClick: (clickedElement: ClickedElement, imageItem: ContentItemDomain) -> Unit
+) : PagingDataAdapter<ContentItemDomain, MainAdapter.MainAdapterViewHolder>(diffUtils) {
 
 
     inner class MainAdapterViewHolder(
@@ -35,7 +35,7 @@ class MainAdapter(
 
         }
 
-        fun bind(item: ImageItemDomain?) {
+        fun bind(item: ContentItemDomain?) {
             if (item == null) return
             binding.imageSearchResult.getImageFromRemote(
                 context = binding.imageSearchResult.context,
@@ -56,7 +56,7 @@ class MainAdapter(
     }
 
     private val itemClick: (View, Int) -> Unit = { view, position ->
-        val item: ImageItemDomain? = getItem(position)
+        val item: ContentItemDomain? = getItem(position)
         if (item != null) {
             val clickedElement: ClickedElement = when (view.id) {
                 R.id.image_search_result -> ClickedElement.ITEM
@@ -68,7 +68,7 @@ class MainAdapter(
         }
     }
 
-    fun getAdapterItems(): List<ImageItemDomain> = snapshot().items
+    fun getAdapterItems(): List<ContentItemDomain> = snapshot().items
 
 }
 

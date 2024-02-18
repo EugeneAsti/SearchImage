@@ -83,7 +83,13 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("com.github.bumptech.glide:okhttp3-integration:4.15.1"){
+        isTransitive = false
+    }
+    ksp ("com.github.bumptech.glide:ksp:4.15.1")
+
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
 //    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")

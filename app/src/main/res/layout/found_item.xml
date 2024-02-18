@@ -50,7 +50,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:background="@color/indigo_50"
-            android:contentDescription="@string/share_button"
+            android:contentDescription="@string/home_button"
             android:src="@drawable/ic_home_page"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

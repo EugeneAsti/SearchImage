@@ -8,9 +8,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import ru.aeyu.searchimagestest.R
 import ru.aeyu.searchimagestest.databinding.FragmentMainBinding
-import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
+import ru.aeyu.searchimagestest.domain.models.ContentItemDomain
 import ru.aeyu.searchimagestest.ui.base.BaseFragment
+import ru.aeyu.searchimagestest.ui.utils.Constants
 import ru.aeyu.searchimagestest.ui.utils.ImageDiffUtils
 
 class MainFragment : BaseFragment<MainState, MainEffect, FragmentMainBinding, MainViewModel>() {
@@ -34,7 +36,7 @@ class MainFragment : BaseFragment<MainState, MainEffect, FragmentMainBinding, Ma
         recyclerView.adapter = mainAdapter
     }
 
-    private val onItemClick: (clickedElement: ClickedElement, imageItem: ImageItemDomain) -> Unit =
+    private val onItemClick: (clickedElement: ClickedElement, imageItem: ContentItemDomain) -> Unit =
         { clickedElement, imageItem ->
             when (clickedElement) {
                 ClickedElement.ITEM -> {
@@ -65,11 +67,15 @@ class MainFragment : BaseFragment<MainState, MainEffect, FragmentMainBinding, Ma
         when (effect) {
             is MainEffect.OnAlertMessage -> showErrorAlertDialog(effect.message)
             is MainEffect.OnImageClicked -> {
-                val action = MainFragmentDirections.imagesCarouselFragmentAction(
-                    effect.images.toTypedArray(),
-                    effect.item.original
-                )
-                findNavController().navigate(action)
+                // Я не сторонник передачи данных через Parcelable.
+                // Я бы сохранил список в локальную БД, либо передал бы через общую viewModel, как проповедует developer.android.com - типа true way.
+                // Но почему-то на всех собесах спрашивают как передать данные в другой фрагмент
+                // и ответ в стиле true way их не устраивает. Видимо это имеют ввиду :(
+                val argsBundle = Bundle()
+                argsBundle.putParcelableArrayList(Constants.KEY_CONTENT_PARCEL, effect.images)
+                argsBundle.putString(Constants.KEY_CURRENT_ITEM_URL, effect.item.original)
+                argsBundle.putString(Constants.KEY_ITEM_TYPE, effect.currentItemTypeCode)
+                findNavController().navigate(R.id.imagesCarouselFragment, argsBundle)
             }
 
             is MainEffect.OnShareClicked -> {

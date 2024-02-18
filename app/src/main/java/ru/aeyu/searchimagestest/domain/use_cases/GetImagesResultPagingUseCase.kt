@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import ru.aeyu.searchimagestest.data.remote.repositories.ImagesResultPagingDataRepository
 import ru.aeyu.searchimagestest.domain.mappers.toDomainModel
-import ru.aeyu.searchimagestest.domain.models.ImageItemDomain
+import ru.aeyu.searchimagestest.domain.models.ContentItemDomain
 import ru.aeyu.searchimagestest.domain.models.SearchQuery
 
 class GetImagesResultPagingUseCase(
@@ -18,11 +18,11 @@ class GetImagesResultPagingUseCase(
     operator fun invoke(
         scope: CoroutineScope,
         searchQuery: SearchQuery
-    ): Flow<Result<PagingData<ImageItemDomain>>> =
+    ): Flow<Result<PagingData<ContentItemDomain>>> =
         imagesResultPagingDataRepository.getListImageItemPagingDataFlow(searchQuery)
             .cachedIn(scope)
             .catch {
-                Result.failure<PagingData<ImageItemDomain>>(it)
+                Result.failure<PagingData<ContentItemDomain>>(it)
             }.map { pagingData ->
                 pagingData.map { apiItem ->
                     apiItem.toDomainModel()

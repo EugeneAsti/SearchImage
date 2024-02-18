@@ -14,33 +14,41 @@ import com.bumptech.glide.request.target.Target
 import ru.aeyu.searchimagestest.R
 
 fun ImageView.getImageFromRemote(
-    context: Context, url:
-    String, progressBarWidget: ProgressBar
+    context: Context,
+    url: String,
+    progressBarWidget: ProgressBar
 ) {
     Glide.with(context)
         .load(url)
-        .listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<Drawable>?,
-                isFirstResource: Boolean
-            ): Boolean {
-                this@getImageFromRemote.background = AppCompatResources.getDrawable(context, R.drawable.ic_image_not_loaded)
-                progressBarWidget.isVisible = false
-                return false
-            }
-
-            override fun onResourceReady(
-                resource: Drawable?,
-                model: Any?,
-                target: Target<Drawable>?,
-                dataSource: DataSource?,
-                isFirstResource: Boolean
-            ): Boolean {
-                progressBarWidget.isVisible = false
-                return false
-            }
-        })
+        .listener(GlideRequestListener(progressBarWidget, this, context))
         .into(this)
+}
+
+class GlideRequestListener(
+    private val progressBarWidget: ProgressBar,
+    private val imageView: ImageView,
+    private val context: Context
+        ) : RequestListener<Drawable> {
+    override fun onLoadFailed(
+        e: GlideException?,
+        model: Any?,
+        target: Target<Drawable>?,
+        isFirstResource: Boolean
+    ): Boolean {
+        imageView.background =
+            AppCompatResources.getDrawable(context, R.drawable.ic_image_not_loaded)
+        progressBarWidget.isVisible = false
+        return false
+    }
+
+    override fun onResourceReady(
+        resource: Drawable?,
+        model: Any?,
+        target: Target<Drawable>?,
+        dataSource: DataSource?,
+        isFirstResource: Boolean
+    ): Boolean {
+        progressBarWidget.isVisible = false
+        return false
+    }
 }
